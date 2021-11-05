@@ -1,0 +1,65 @@
+﻿@page "/"
+
+@inject Controllers.DeveloperService  developservice
+
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">Developers</h1>
+        <div class="form-group">
+            <a class="govuk-button" href="developer/create"><i class="oi oi-plus"></i> Create New</a>
+        </div>
+        <br>
+
+        @if (developers == null)
+        {
+            <text>Loading...</text>
+        }
+        else if (developers.Count == 0)
+        {
+            <text>No developers Found.</text>
+        }
+        else
+        {
+    <table class="govuk-table">
+        <caption class="govuk-table__caption sr-only">List of developers</caption>
+        <thead>
+            <tr class ="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Id</th>
+                <th scope="col" class="govuk-table__header">First Name</th>
+                <th scope="col" class="govuk-table__header">Last Name</th>
+                <th scope="col" class="govuk-table__header">Preferred language</th>
+                <th scope="col" class="govuk-table__header">Experience (years)</th>
+                <th scope="col" class="govuk-table__header">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Developer dev in developers)
+            {
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">@dev.Id</td>
+                    <td class="govuk-table__cell">@dev.FirstName</td>
+                    <td class="govuk-table__cell">@dev.LastName</td>
+                    <td class="govuk-table__cell">@dev.PreferredLanguage</td>
+                    <td class="govuk-table__cell">@dev.Experience.ToString("0")</td>
+                    <td class="govuk-table__cell">
+                        <a class="govuk-button" href="developer/edit/@dev.Id">
+                            Edit
+                        </a>
+                        <a class="govuk-button govuk-button--warning" href="developer/delete/@dev.Id">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+        }
+            </div>
+
+        @code {
+            List<Developer> developers;
+
+            protected override async Task OnInitializedAsync()
+            {
+                developers = await Task.Run(() => developservice.GetAll());
+            }
+        }

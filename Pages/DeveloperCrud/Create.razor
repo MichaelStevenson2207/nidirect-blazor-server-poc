@@ -1,0 +1,105 @@
+﻿@page "/developer/create"
+@inject Controllers.DeveloperService _developerService
+@inject NavigationManager _navigationManager
+
+<div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Create developer</h1>
+
+    <EditForm Model="@obj" OnValidSubmit="@CreateEmployee">
+        <ValidationSummary />
+        <DataAnnotationsValidator />
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="FirstName" class="govuk-label">First name</label>
+                    <div class="govuk-error-message">
+                        <ValidationMessage For="@(() => obj.FirstName)" />
+                    </div>
+                    <input form="FirstName" class="govuk-input" @bind="@obj.FirstName" />
+
+                </div>
+                <div class="form-group">
+                    <label for="LastName" class="govuk-label">Last name</label>
+                    <div class="govuk-error-message">
+                        <ValidationMessage For="@(() => obj.LastName)" />
+                    </div>
+                    <input form="LastName" class="govuk-input" @bind="@obj.LastName" />
+                </div>
+
+                <div class="form-group">
+                    <label for="CountryId" class="govuk-label">Country</label>
+                    <div class="govuk-error-message">
+                        <ValidationMessage For="@(() => obj.CountryId)" />
+                    </div>
+                    <select @onchange="ShowHideOtherCountry" class="govuk-select">
+                        <option value="0">Select country</option>
+                        <option value="1">United Kingdom</option>
+                        <option value="2">Ireland</option>
+                        <option value="3">United States</option>
+                        <option value="4">Other country</option>
+                    </select>
+                </div>
+
+                @if (showHide)
+                {
+                    <div class="form-group">
+                        <label for="OtherCountry" class="govuk-label">Other country</label>
+                        <input form="OtherCountry" class="govuk-input" @bind="@obj.OtherCountry" />
+                    </div>
+                }
+
+                <div class="form-group">
+                    <label for="PreferredLanguage" class="govuk-label">Preferred language</label>
+                    <input form="PreferredLanguage" class="govuk-input" @bind="@obj.PreferredLanguage" />
+                </div>
+                <div class="form-group">
+                    <label for="Experience" class="govuk-label">Experience</label>
+                    <input form="Experience" class="govuk-input" @bind="@obj.Experience" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button type="submit" class="govuk-button" value="Save">Save</button>
+                    <input type="button" class="govuk-button govuk-button--secondary" @onclick="@Cancel" value="Cancel" />
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+@code
+    {
+    public Developer obj = new Developer();
+
+    public bool showHide { get; set; } = false;
+
+    public async void CreateEmployee()
+    {
+        await _developerService.InsertDeveloperAsync(obj);
+
+        _navigationManager.NavigateTo("/");
+    }
+    void Cancel()
+    {
+        _navigationManager.NavigateTo("/");
+    }
+
+    private void ShowHideOtherCountry(ChangeEventArgs e)
+    {
+        if (e.Value.ToString() == "4")
+        {
+            showHide = true;
+        }
+        else
+        {
+            showHide = false;
+        }
+
+        obj.CountryId = Int32.Parse(e.Value.ToString());
+    }
+}
