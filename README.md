@@ -1,4 +1,7 @@
 # edd-blazor-server-poc
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MichaelStevenson2207_nidirect-blazor-server-poc&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=MichaelStevenson2207_nidirect-blazor-server-poc)
+
 This is a poc for a Blazor server application with the NI Direct stylings.
 Learn more about Microsofts version of a SPA here: https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor
 
