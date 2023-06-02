@@ -2,7 +2,7 @@
 
 namespace edd_blazor_server_poc.Models
 {
-    public class Developer
+    public sealed class Developer
     {
         public int Id { get; set; }
 
