@@ -15,7 +15,6 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<DeveloperService>();
 
 var app = builder.Build();
