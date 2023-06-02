@@ -2,24 +2,22 @@
 @inject Controllers.DeveloperService _developerService
 @inject NavigationManager _navigationManager
 
-<div class="govuk-grid-column-full">
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Create developer</h1>
 
     <EditForm Model="@obj" OnValidSubmit="@CreateEmployee">
         <ValidationSummary />
         <DataAnnotationsValidator />
 
-        <div class="row">
-            <div class="col-md-8">
-                <div class="form-group">
+            <div class="govuk-form-group">
                     <label for="FirstName" class="govuk-label">First name</label>
                     <div class="govuk-error-message">
                         <ValidationMessage For="@(() => obj.FirstName)" />
                     </div>
                     <input form="FirstName" class="govuk-input" @bind="@obj.FirstName" />
-
                 </div>
-                <div class="form-group">
+            <div class="govuk-form-group">
                     <label for="LastName" class="govuk-label">Last name</label>
                     <div class="govuk-error-message">
                         <ValidationMessage For="@(() => obj.LastName)" />
@@ -27,7 +25,7 @@
                     <input form="LastName" class="govuk-input" @bind="@obj.LastName" />
                 </div>
 
-                <div class="form-group">
+                <div class="govuk-form-group">
                     <label for="CountryId" class="govuk-label">Country</label>
                     <div class="govuk-error-message">
                         <ValidationMessage For="@(() => obj.CountryId)" />
@@ -43,33 +41,29 @@
 
                 @if (showHide)
                 {
-                    <div class="form-group">
+                   <div class="govuk-form-group">
                         <label for="OtherCountry" class="govuk-label">Other country</label>
                         <input form="OtherCountry" class="govuk-input" @bind="@obj.OtherCountry" />
                     </div>
                 }
 
-                <div class="form-group">
+            <div class="govuk-form-group">
                     <label for="PreferredLanguage" class="govuk-label">Preferred language</label>
                     <input form="PreferredLanguage" class="govuk-input" @bind="@obj.PreferredLanguage" />
                 </div>
-                <div class="form-group">
+            <div class="govuk-form-group">
                     <label for="Experience" class="govuk-label">Experience</label>
                     <input form="Experience" class="govuk-input" @bind="@obj.Experience" />
                 </div>
 
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
+            <div class="govuk-form-group">
                     <button type="submit" class="govuk-button" value="Save">Save</button>
                     <input type="button" class="govuk-button govuk-button--secondary" @onclick="@Cancel" value="Cancel" />
                 </div>
-            </div>
-        </div>
-    </EditForm>
+
+
+        </EditForm>
+    </div>
 </div>
 
 @code

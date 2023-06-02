@@ -1,9 +1,9 @@
-﻿using edd_blazor_server_poc.Data;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using edd_blazor_server_poc.Data;
 using edd_blazor_server_poc.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace edd_blazor_server_poc.Controllers
 {

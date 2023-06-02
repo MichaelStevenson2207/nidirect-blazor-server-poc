@@ -2,27 +2,29 @@
 
 @inject Controllers.DeveloperService  developservice
 
-    <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-l">Developers</h1>
-        <div class="form-group">
-            <a class="govuk-button" href="developer/create"><i class="oi oi-plus"></i> Create New</a>
-        </div>
-        <br>
+<div class="govuk-grid-row">
 
-        @if (developers == null)
-        {
-            <text>Loading...</text>
-        }
-        else if (developers.Count == 0)
-        {
-            <text>No developers Found.</text>
-        }
-        else
-        {
-    <table class="govuk-table">
-        <caption class="govuk-table__caption sr-only">List of developers</caption>
-        <thead>
-            <tr class ="govuk-table__row">
+<div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Developers</h1>
+        <div class="govuk-form-group">
+        <a class="govuk-button" href="developer/create"><i class="oi oi-plus"></i> Create New</a>
+    </div>
+    <br>
+
+    @if (developers == null)
+    {
+        <text>Loading...</text>
+    }
+    else if (developers.Count == 0)
+    {
+        <text>No developers Found.</text>
+    }
+    else
+    {
+        <table class="govuk-table">
+            <caption class="govuk-table__caption sr-only">List of developers</caption>
+            <thead>
+            <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header">Id</th>
                 <th scope="col" class="govuk-table__header">First Name</th>
                 <th scope="col" class="govuk-table__header">Last Name</th>
@@ -30,8 +32,8 @@
                 <th scope="col" class="govuk-table__header">Experience (years)</th>
                 <th scope="col" class="govuk-table__header">Actions</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             @foreach (Developer dev in developers)
             {
                 <tr class="govuk-table__row">
@@ -50,10 +52,11 @@
                     </td>
                 </tr>
             }
-        </tbody>
-    </table>
-        }
-            </div>
+            </tbody>
+        </table>
+    }
+</div>
+</div>
 
         @code {
             List<Developer> developers;

@@ -7400,7 +7400,7 @@ pre.language-markup code.language-markup span.nidirect-codeLine::before {
 /*# sourceMappingURL=site.css.map */
 .bottom-footer {
     width: 100%;
-    position: relative;
+    /*position: absolute;*/
     bottom: 0;
     left: 0;
 }
@@ -7422,3 +7422,4 @@ pre.language-markup code.language-markup span.nidirect-codeLine::before {
 
 .validation-message {
 }
+

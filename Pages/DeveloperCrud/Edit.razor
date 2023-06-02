@@ -4,10 +4,10 @@
 @inject NavigationManager NavigationManager
 
 <form>
+    <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Edit developer</h1>
-        <div class="govuk-grid-row">
-            <div class="col-md-8">
+         
                 <div class="govuk-form-group">
                     <label for="FirstName" class="govuk-label">First name</label>
                     <input form="Name" class="govuk-input" @bind="@obj.FirstName" />
@@ -24,18 +24,13 @@
                     <label for="Experience" class="govuk-label">Experience</label>
                     <input form="City" class="govuk-input" @bind="@obj.Experience" />
                 </div>
+           
+            <div class="govuk-form-group">
+                <input type="button" class="govuk-button" @onclick="@UpdateDev" value="Update" />
+                <input type="button" class="govuk-button govuk-button--secondary" @onclick="@Cancel" value="Cancel" />
             </div>
-        </div>
-
-        <div class="govuk-grid-row">
-            <div class="col-md-8">
-                <div class="govuk-form-group">
-                    <input type="button" class="govuk-button" @onclick="@UpdateDev" value="Update" />
-                    <input type="button" class="govuk-button govuk-button--secondary" @onclick="@Cancel" value="Cancel" />
-                </div>
-                </div>
-            </div>
-        </div>
+    </div>
+    </div>
     </form>
 
 @code {

@@ -12,16 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>edd-blazor-server-poc</title>
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
-
 </head>
-<body>
-    <app>
-        <component type="typeof(App)" render-mode="ServerPrerendered" />
-    </app>
+<body class="govuk-template__body">
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
-    @*<div id="blazor-error-ui">
+<app>
+    <component type="typeof(App)" render-mode="ServerPrerendered"/>
+</app>
+
+@*<div id="blazor-error-ui">
         <environment include="Staging,Production">
             An error has occurred. This application may no longer respond until reloaded.
         </environment>
@@ -32,6 +32,6 @@
         <a class="dismiss">🗙</a>
     </div>*@
 
-    <script src="_framework/blazor.server.js"></script>
+<script src="_framework/blazor.server.js"></script>
 </body>
 </html>

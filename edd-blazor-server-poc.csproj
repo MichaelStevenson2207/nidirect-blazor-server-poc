@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\fonts\" />
+    <Compile Remove="wwwroot\assets\fonts\**" />
+    <Content Remove="wwwroot\assets\fonts\**" />
+    <EmbeddedResource Remove="wwwroot\assets\fonts\**" />
+    <None Remove="wwwroot\assets\fonts\**" />
   </ItemGroup>
 
   <ItemGroup>
