@@ -5,13 +5,15 @@
 
 <form>
     <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">Delete developer</h1>
+        <div class="govuk-grid-column-full">
+            
 
-        <p class="govuk-body">Are you sure want to delete this developer?</p>
+            <h1 class="govuk-heading-l">Delete developer</h1>
+
+            <p class="govuk-body">Are you sure want to delete this developer?</p>
             <div class="govuk-form-group">
-                <label class="govuk-label">First name</label>
-                <label class="govuk-label">@obj.FirstName</label>
+                <label class="govuk-label" for="FirstName">First name</label>
+                <label class="govuk-label" id="FirstName">@obj.FirstName</label>
             </div>
             <div class="govuk-form-group">
                 <label class="govuk-label">Last name</label>
@@ -25,13 +27,13 @@
                 <label class="govuk-label">Experience</label>
                 <label class="govuk-label">@obj.Experience.ToString("0")</label>
             </div>
-          
+
             <div class="govuk-form-group">
-                <input type="button" class="govuk-button govuk-button--warning" @onclick="@DeleteDev" value="Delete" />
-                <input type="button" class="govuk-button govuk-button--secondary" @onclick="@Cancel" value="Cancel" />
+                <input type="button" class="govuk-button govuk-button--warning" @onclick="@DeleteDev" value="Delete"/>
+                <input type="button" class="govuk-button govuk-button--secondary" @onclick="@Cancel" value="Cancel"/>
             </div>
-   
-    </div>
+
+        </div>
     </div>
 </form>
 
