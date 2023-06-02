@@ -1,34 +1,34 @@
 ﻿@page "/developer/create"
-@inject Controllers.DeveloperService _developerService
-@inject NavigationManager _navigationManager
+@inject Controllers.DeveloperService DeveloperService
+@inject NavigationManager NavigationManager
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">Create developer</h1>
 
-    <EditForm Model="@obj" OnValidSubmit="@CreateEmployee">
+        <EditForm Model="@Obj" OnValidSubmit="@CreateEmployee">
         <ValidationSummary />
         <DataAnnotationsValidator />
 
             <div class="govuk-form-group">
                     <label for="FirstName" class="govuk-label">First name</label>
                     <div class="govuk-error-message">
-                        <ValidationMessage For="@(() => obj.FirstName)" />
+                    <ValidationMessage For="@(() => Obj.FirstName)" />
                     </div>
-                    <input form="FirstName" class="govuk-input" @bind="@obj.FirstName" />
+                <input form="FirstName" class="govuk-input" @bind="@Obj.FirstName" />
                 </div>
             <div class="govuk-form-group">
                     <label for="LastName" class="govuk-label">Last name</label>
                     <div class="govuk-error-message">
-                        <ValidationMessage For="@(() => obj.LastName)" />
+                    <ValidationMessage For="@(() => Obj.LastName)" />
                     </div>
-                    <input form="LastName" class="govuk-input" @bind="@obj.LastName" />
+                <input form="LastName" class="govuk-input" @bind="@Obj.LastName" />
                 </div>
 
                 <div class="govuk-form-group">
                     <label for="CountryId" class="govuk-label">Country</label>
                     <div class="govuk-error-message">
-                        <ValidationMessage For="@(() => obj.CountryId)" />
+                    <ValidationMessage For="@(() => Obj.CountryId)" />
                     </div>
                     <select @onchange="ShowHideOtherCountry" class="govuk-select">
                         <option value="0">Select country</option>
@@ -43,17 +43,17 @@
                 {
                    <div class="govuk-form-group">
                         <label for="OtherCountry" class="govuk-label">Other country</label>
-                        <input form="OtherCountry" class="govuk-input" @bind="@obj.OtherCountry" />
+                    <input form="OtherCountry" class="govuk-input" @bind="@Obj.OtherCountry" />
                     </div>
                 }
 
             <div class="govuk-form-group">
                     <label for="PreferredLanguage" class="govuk-label">Preferred language</label>
-                    <input form="PreferredLanguage" class="govuk-input" @bind="@obj.PreferredLanguage" />
+                <input form="PreferredLanguage" class="govuk-input" @bind="@Obj.PreferredLanguage" />
                 </div>
             <div class="govuk-form-group">
                     <label for="Experience" class="govuk-label">Experience</label>
-                    <input form="Experience" class="govuk-input" @bind="@obj.Experience" />
+                <input form="Experience" class="govuk-input" @bind="@Obj.Experience" />
                 </div>
 
             <div class="govuk-form-group">
@@ -68,24 +68,24 @@
 
 @code
     {
-    public Developer obj = new Developer();
+    public Developer Obj = new Developer();
 
     public bool showHide { get; set; } = false;
 
     public async void CreateEmployee()
     {
-        await _developerService.InsertDeveloperAsync(obj);
+        await DeveloperService.InsertDeveloperAsync(Obj);
 
-        _navigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/");
     }
     void Cancel()
     {
-        _navigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/");
     }
 
     private void ShowHideOtherCountry(ChangeEventArgs e)
     {
-        if (e.Value.ToString() == "4")
+        if (e.Value != null && e.Value.ToString() == "4")
         {
             showHide = true;
         }
@@ -94,6 +94,6 @@
             showHide = false;
         }
 
-        obj.CountryId = Int32.Parse(e.Value.ToString());
+        Obj.CountryId = Int32.Parse(e.Value.ToString());
     }
 }

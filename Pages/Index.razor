@@ -1,12 +1,12 @@
 ﻿@page "/"
 
-@inject Controllers.DeveloperService  developservice
+@inject Controllers.DeveloperService  Developservice
 
 <div class="govuk-grid-row">
 <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">Developers</h1>
         <div class="govuk-form-group">
-        <a class="govuk-button" href="developer/create"><i class="oi oi-plus"></i> Create New</a>
+        <a class="govuk-button" href="developer/create">Create New</a>
     </div>
     <br>
 
@@ -62,6 +62,6 @@
 
             protected override async Task OnInitializedAsync()
             {
-                developers = await Task.Run(() => developservice.GetAll());
+        developers = await Task.Run(() => Developservice.GetAll());
             }
         }

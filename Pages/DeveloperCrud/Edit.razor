@@ -1,5 +1,4 @@
 ﻿@page "/developer/edit/{Id}"
-@using edd_blazor_server_poc.Data
 @inject Controllers.DeveloperService developerService
 @inject NavigationManager NavigationManager
 
@@ -10,19 +9,19 @@
          
                 <div class="govuk-form-group">
                     <label for="FirstName" class="govuk-label">First name</label>
-                    <input form="Name" class="govuk-input" @bind="@obj.FirstName" />
+                <input form="Name" class="govuk-input" @bind="@Obj.FirstName" />
                 </div>
                 <div class="govuk-form-group">
                     <label for="LastName" class="govuk-label">Last name</label>
-                    <input form="Designation" class="govuk-input" @bind="@obj.LastName" />
+                <input form="Designation" class="govuk-input" @bind="@Obj.LastName" />
                 </div>
                 <div class="govuk-form-group">
                     <label for="PreferredLanguage" class="govuk-label">Preferred language</label>
-                    <input form="City" class="govuk-input" @bind="@obj.PreferredLanguage" />
+                <input form="City" class="govuk-input" @bind="@Obj.PreferredLanguage" />
                 </div>
                 <div class="govuk-form-group">
                     <label for="Experience" class="govuk-label">Experience</label>
-                    <input form="City" class="govuk-input" @bind="@obj.Experience" />
+                <input form="City" class="govuk-input" @bind="@Obj.Experience" />
                 </div>
            
             <div class="govuk-form-group">
@@ -36,14 +35,14 @@
 @code {
     [Parameter]
     public string Id { get; set; }
-    Developer obj = new Developer();
+    Developer Obj = new Developer();
     protected override async Task OnInitializedAsync()
     {
-        obj = await Task.Run(() => developerService.GetDeveloperAsync(Convert.ToInt32(Id)));
+        Obj = await Task.Run(() => developerService.GetDeveloperAsync(Convert.ToInt32(Id)));
     }
     protected async void UpdateDev()
     {
-        await developerService.UpdateDeveloperAsync(obj);
+        await developerService.UpdateDeveloperAsync(Obj);
         NavigationManager.NavigateTo("/");
     }
     void Cancel()
