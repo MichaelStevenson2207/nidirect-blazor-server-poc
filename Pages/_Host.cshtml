@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Web
 @namespace edd_blazor_server_poc.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
@@ -25,13 +26,14 @@
     <link href="css/site.css" rel="stylesheet" />
     <link rel="icon" href="~/assets/images/favicon.ico" type="image/x-icon" />
     <link rel="icon" sizes="16x16 32x32 48x48" href="~/assets/images/favicon.ico" type="image/x-icon">
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
 </head>
 <body class="govuk-template__body">
     <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
-<app>
+
     <component type="typeof(App)" render-mode="ServerPrerendered"/>
-</app>
+
 
 @*<div id="blazor-error-ui">
         <environment include="Staging,Production">
