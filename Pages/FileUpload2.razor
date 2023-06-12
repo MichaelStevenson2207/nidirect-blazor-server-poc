@@ -1,0 +1,56 @@
+﻿@page "/fileupload2"
+@using System.IO;
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">File upload</h1>
+
+        <div class="drag-drop-zone">
+            <BlazorInputFile.InputFile OnChange="ViewFile" />
+            @status
+        </div>
+
+    </div>
+</div>
+
+@if (fileName != null)
+{
+    <h3>@fileName</h3>
+    <pre>@fileTextContents</pre>
+}
+
+@code 
+{
+    const string DefaultStatus = "Drop a text file here to view it, or click to choose a file";
+    const int MaxFileSize = 5 * 1024 * 1024;
+    string status = DefaultStatus;
+
+    string fileName;
+    string fileTextContents;
+
+    async Task ViewFile(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+
+        if (file == null)
+        {
+            return;
+        }
+        else if (file.Size > MaxFileSize)
+        {
+            status = $"That's too big. Max file size is { MaxFileSize } bytes.";
+        }
+        else
+        {
+            status = "Loading...";
+
+            using (var reader = new StreamReader(file.Data))
+            {
+                fileTextContents = await reader.ReadToEndAsync();
+                fileName = file.Name;
+            }
+
+            status = DefaultStatus;
+        }
+    }
+}

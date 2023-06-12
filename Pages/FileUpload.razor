@@ -1,0 +1,88 @@
+﻿@page "/fileupload"
+@using Microsoft.Extensions.Logging
+@using System.IO
+
+@inject ILogger<Index> Logger
+
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">File upload</h1>
+    
+    <div class="govuk-form-group">
+        <label class="govuk-label govuk-label--m" for="maxFileSize">
+            Max file size in MB:
+        </label>
+        <input type="number" class="govuk-input" id="maxFileSize" @bind="maxFileSize" />
+    </div>
+
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-label--m" for="maxAllowedFiles">
+                Max allowed files:
+            </label>
+            <input type="number" class="govuk-input" id="maxAllowedFiles" @bind="maxAllowedFiles" />
+    </div>
+
+    <div class="govuk-form-group">
+        <label for="LoadFiles" class="govuk-label govuk-label--m">
+            Upload up to @maxAllowedFiles of up to @maxFileSize MB:
+        </label>
+        <Microsoft.AspNetCore.Components.Forms.InputFile OnChange="@LoadFiles" class="govuk-file-upload" id="LoadFiles" multiple />
+    </div>
+
+    @if (isLoading)
+    {
+        <p class="govuk-body">Uploading...</p>
+    }
+    else
+    {
+        @foreach (var file in loadedFiles)
+        {
+                <ul class="govuk-list">
+                <li>Name: @file.Name</li>
+                <li>Last modified: @file.LastModified.ToString()</li>
+                <li>Size (bytes): @file.Size</li>
+                <li>Content type: @file.ContentType</li>
+            </ul>
+            <br />
+        }
+    }
+</div>
+</div>
+
+@code
+{
+    private List<IBrowserFile> loadedFiles = new();
+    private long maxFileSize = 1;
+    private int maxAllowedFiles = 3;
+    private bool isLoading;
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            if (file.Size > (maxFileSize * 1024 * 1024))
+            {
+                continue;
+            }
+
+            try
+            {
+                loadedFiles.Add(file);
+
+                var path = Path.Combine(@"C:\Temp", file.Name);
+
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize * 1024 * 1024).CopyToAsync(fs);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("File: {Filename} Error: {Error}", file.Name, ex.Message);
+            }
+        }
+
+        isLoading = false;
+    }
+}

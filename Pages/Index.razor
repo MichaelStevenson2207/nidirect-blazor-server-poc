@@ -1,5 +1,9 @@
 ﻿@page "/"
 
+<HeadContent>
+    <meta name="description" content="Index page" />
+</HeadContent>
+
 @inject Controllers.DeveloperService  Developservice
 
 <div class="govuk-grid-row">
@@ -57,11 +61,12 @@
 </div>
 </div>
 
-        @code {
-            List<Developer> developers;
+@code
+{
+  List<Developer> developers;
 
-            protected override async Task OnInitializedAsync()
-            {
+  protected override async Task OnInitializedAsync()
+  {
         developers = await Task.Run(() => Developservice.GetAll());
-            }
-        }
+  }
+}

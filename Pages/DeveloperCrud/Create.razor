@@ -68,32 +68,33 @@
 
 @code
     {
-    public Developer Obj = new Developer();
+        public Developer Obj = new Developer();
 
-    public bool showHide { get; set; } = false;
+        public bool showHide { get; set; } = false;
 
-    public async void CreateEmployee()
-    {
-        await DeveloperService.InsertDeveloperAsync(Obj);
-
-        NavigationManager.NavigateTo("/");
-    }
-    void Cancel()
-    {
-        NavigationManager.NavigateTo("/");
-    }
-
-    private void ShowHideOtherCountry(ChangeEventArgs e)
-    {
-        if (e.Value != null && e.Value.ToString() == "4")
+        public async void CreateEmployee()
         {
-            showHide = true;
+            await DeveloperService.InsertDeveloperAsync(Obj);
+
+            NavigationManager.NavigateTo("/");
         }
-        else
+    
+        void Cancel()
         {
-            showHide = false;
+            NavigationManager.NavigateTo("/");
         }
 
-        Obj.CountryId = Int32.Parse(e.Value.ToString());
-    }
+        private void ShowHideOtherCountry(ChangeEventArgs e)
+        {
+            if (e.Value != null && e.Value.ToString() == "4")
+            {
+                showHide = true;
+            }
+            else
+            {
+                showHide = false;
+            }
+
+            Obj.CountryId = Int32.Parse(e.Value.ToString());
+        }
 }

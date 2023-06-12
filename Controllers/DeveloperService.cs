@@ -19,7 +19,7 @@ namespace edd_blazor_server_poc.Controllers
 
         public async Task<List<Developer>> GetAll()
         {
-            return await _context.Developers.ToListAsync();
+            return await _context.Developers.AsNoTracking().ToListAsync();
         }
 
         public async Task<bool> InsertDeveloperAsync(Developer developer)
