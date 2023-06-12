@@ -26,7 +26,7 @@
         <label for="LoadFiles" class="govuk-label govuk-label--m">
             Upload up to @maxAllowedFiles of up to @maxFileSize MB:
         </label>
-        <InputFile OnChange="@LoadFiles" class="govuk-file-upload" id="LoadFiles" multiple />
+        <Microsoft.AspNetCore.Components.Forms.InputFile OnChange="@LoadFiles" class="govuk-file-upload" id="LoadFiles" multiple />
     </div>
 
     @if (isLoading)

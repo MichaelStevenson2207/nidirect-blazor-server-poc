@@ -44,7 +44,7 @@
         Obj = await Task.Run(() => developerService.GetDeveloperAsync(Convert.ToInt32(Id)));
     }
     
-    protected async void UpdateDev()
+    private async void UpdateDev()
     {
         await developerService.UpdateDeveloperAsync(Obj);
         NavigationManager.NavigateTo("/");
