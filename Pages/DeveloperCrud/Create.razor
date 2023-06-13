@@ -7,8 +7,8 @@
     <h1 class="govuk-heading-l">Create developer</h1>
 
         <EditForm Model="@Obj" OnValidSubmit="@CreateEmployee">
-        <ValidationSummary />
-        <DataAnnotationsValidator />
+      
+            <GovUkValidationSummary />
 
             <div class="govuk-form-group">
                     <label for="FirstName" class="govuk-label">First name</label>
