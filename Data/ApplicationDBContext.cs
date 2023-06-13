@@ -1,5 +1,4 @@
 ﻿using edd_blazor_server_poc.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace edd_blazor_server_poc.Data
 {
