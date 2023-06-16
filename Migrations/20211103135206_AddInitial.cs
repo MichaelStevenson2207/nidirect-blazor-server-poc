@@ -1,4 +1,6 @@
-﻿namespace edd_blazor_server_poc.Migrations
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace edd_blazor_server_poc.Migrations
 {
     public partial class AddInitial : Migration
     {

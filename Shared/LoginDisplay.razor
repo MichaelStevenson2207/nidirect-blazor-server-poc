@@ -1,0 +1,30 @@
+﻿<AuthorizeView>
+    <Authorized>
+        
+        <li class="govuk-header__navigation-item nidirect-header__navigation-item">
+            <a class="govuk-header__link" href="Identity/Account/Manage">Hi, @context.User.Identity.Name!</a>
+        </li>
+        
+        <li class="govuk-header__navigation-item nidirect-header__navigation-item">
+            <form method="post" action="Identity/Account/LogOut">
+                <button type="submit" class="govuk-header__link">Log out</button>
+            </form>
+        </li>
+        
+        
+       
+    </Authorized>
+    <NotAuthorized>
+        
+        <li class="govuk-header__navigation-item nidirect-header__navigation-item">
+            <a class="govuk-header__link" href="Identity/Account/Register">Register</a>
+        </li>
+        
+        <li class="govuk-header__navigation-item nidirect-header__navigation-item">
+            <a class="govuk-header__link" href="Identity/Account/Login">Log in</a>
+        </li>
+        
+        
+       
+    </NotAuthorized>
+</AuthorizeView>

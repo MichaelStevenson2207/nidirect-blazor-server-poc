@@ -1,4 +1,6 @@
-﻿namespace edd_blazor_server_poc.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace edd_blazor_server_poc.Models
 {
     public sealed class Developer
     {
