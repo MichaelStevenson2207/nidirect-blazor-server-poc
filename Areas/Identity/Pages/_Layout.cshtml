@@ -1,4 +1,28 @@
-﻿<header role="banner">
+﻿<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="This is a dotnet Blazor template for a NI Direct style site which can be reused on Github for free">
+    <meta property="og:url" content="https://nidirect.gov.uk">
+    <link rel="canonical" href="https://nidirect.gov.uk">
+    <meta property="og:title" content="NI Direct Blazor template">
+    <meta property="og:description" content="This is a dotnet template for a NI Direct Blazor site">
+    <meta property="og:image:alt" content="NI Direct Blazor template">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="apple-touch-icon" src="~/assets/images/ni-direct-apple-touch.png" />
+    <title>NI Direct Blazor app</title>
+    <base href="~/" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link rel="icon" href="~/assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" sizes="16x16 32x32 48x48" href="~/assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body class="govuk-template__body">
+<script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+
+<header role="banner">
     <div class="nidirect-header">
         <div class="govuk-width-container flex-parent">
             <div class="nidirect-header__logo">
@@ -18,28 +42,13 @@
             
             <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
             <nav role="navigation" aria-label="Top Level Navigation" data-html2canvas-ignore="true">
-            <ul id="navigation" class="govuk-header__navigation nidirect-header__navigation">
-
-                <li class="govuk-header__navigation-item nidirect-header__navigation-item">
-                    <a class="govuk-header__link" href="fileupload">
-                        File upload
-                    </a>
-                </li>
-                
-                <li class="govuk-header__navigation-item nidirect-header__navigation-item">
-                    <a class="govuk-header__link" href="fileupload2">
-                        File upload 2
-                    </a>
-                </li>
-                
-                <LoginDisplay />
-                
-                <li class="govuk-header__navigation-item nidirect-header__navigation-item--active">
-                    <a class="govuk-header__link" href="/">
-                        Home
-                    </a>
-                </li>
-            </ul>
+                <ul id="navigation" class="govuk-header__navigation nidirect-header__navigation">
+                    <li class="govuk-header__navigation-item nidirect-header__navigation-item--active">
+                        <a class="govuk-header__link" href="/">
+                            Home
+                        </a>
+                    </li>
+                </ul>
             </nav>
         </div>
     </div>
@@ -49,3 +58,31 @@
         </div>
     </div>
 </header>
+
+<div class="govuk-width-container">
+    <main role="main" class="govuk-main-wrapper" id="main-content">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="nidirect_footer" role="contentinfo">
+    <div class="govuk-width-container">
+        <p class="govuk-body">
+            <ul>
+                <li>
+                    <a class="govuk-link" href="#" target="blank" rel="nofollow">Privacy (opens in a new tab)</a>
+                </li>
+                <li>
+                    <a class="govuk-link" href="#" target="blank" rel="nofollow">Cookies (opens in a new tab)</a>
+                </li>
+                <li>
+                    <a class="govuk-link" href="#" target="blank" rel="nofollow">Accessibility</a>
+                </li>
+            </ul>
+        </p>
+    </div>
+</footer>
+
+@RenderSection("Scripts", required: false)
+</body>
+</html>
