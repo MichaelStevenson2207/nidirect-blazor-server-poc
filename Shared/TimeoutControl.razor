@@ -35,6 +35,8 @@
 
     private bool _shouldRender = false;
 
+    public int TimeLeft { get; set; }
+
     protected override void OnInitialized()
     {
         Task.Delay(DelayInMinutes * 1000).ContinueWith(_ =>
