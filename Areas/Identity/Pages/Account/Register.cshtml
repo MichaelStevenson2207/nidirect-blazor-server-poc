@@ -1,0 +1,63 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        
+        <h1 class="govuk-heading-l">@ViewData["Title"]</h1>
+        
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2 class="govuk-heading-m">Create a new account.</h2>
+         
+            <div asp-validation-summary="ModelOnly" class="govuk-error-summary" role="alert"></div>
+            <div class="govuk-form-group">
+                <label asp-for="Input.Email" class="govuk-label govuk-label--m">Email</label>
+                <span asp-validation-for="Input.Email" class="govuk-error-message"></span>
+                <input asp-for="Input.Email" class="govuk-input" autocomplete="username" aria-required="true" />
+            </div>
+            <div class="govuk-form-group">
+                <label asp-for="Input.Password" class="govuk-label govuk-label--m">Password</label>
+                <span asp-validation-for="Input.Password" class="govuk-error-message"></span>
+                <input asp-for="Input.Password" class="govuk-input" autocomplete="new-password" aria-required="true" />
+            </div>
+            <div class="govuk-form-group">
+
+                <label asp-for="Input.ConfirmPassword" class="govuk-label govuk-label--m">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="govuk-error-message"></span>
+                <input asp-for="Input.ConfirmPassword" class="govuk-input" autocomplete="new-password" aria-required="true" />
+            </div>
+            <button id="registerSubmit" type="submit" class="govuk-button" data-module="govuk-button">Register</button>
+        </form>
+
+        <h3 class="govuk-heading-s">Use another service to register.</h3>
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                        <p class="govuk-body">
+                            There are no external authentication services configured. See this <a class="govuk-link" href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    
+                            <p class="govuk-body">
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <button type="submit" class="govuk-button" data-module="govuk-button" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                    </form>
+                }
+            }
+      
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,83 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        
+        <h1 class="govuk-heading-l">@ViewData["Title"]</h1>
+        
+            <form id="account" method="post">
+            <h2 class="govuk-heading-m">Use a local account to log in.</h2>
+
+            <div asp-validation-summary="ModelOnly" class="govuk-error-summary" role="alert"></div>
+                <div class="govuk-form-group">
+                    <label asp-for="Input.Email" class="govuk-label govuk-label--m">Email</label>
+                       <span asp-validation-for="Input.Email" class="govuk-error-message"></span>
+                    <input asp-for="Input.Email" class="govuk-input" autocomplete="username" aria-required="true" />
+                </div>
+                <div class="govuk-form-group">
+                    <label asp-for="Input.Password" class="govuk-label govuk-label--m">Password</label>
+                    <span asp-validation-for="Input.Password" class="govuk-error-message"></span>
+                    <input asp-for="Input.Password" class="govuk-input" autocomplete="current-password" aria-required="true" />
+                </div>
+                <div class="govuk-form-group">
+                    <div class="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            @Html.CheckBoxFor(m => m.Input.RememberMe, new { @class = "govuk-checkboxes__input" })
+                            <label class="govuk-label govuk-checkboxes__label" asp-for="Input.RememberMe">
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="govuk-form-group">
+                    <button id="login-submit" type="submit" class="govuk-button" data-module="govuk-button">Log in</button>
+                </div>
+                <div class="govuk-form-group">
+                    <p class="govuk-body">
+                        <a id="forgot-password" class="govuk-link" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                     <p class="govuk-body">
+                        <a asp-page="./Register" class="govuk-link" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                     <p class="govuk-body">
+                        <a id="resend-confirmation" class="govuk-link" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                </div>
+            </form>
+
+            <h3 class="govuk-heading-s">Use another service to log in.</h3>
+       
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                        <p class="govuk-body">
+                        There are no external authentication services configured. See this <a class="govuk-link" href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                            article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                     
+                             <p class="govuk-body">
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                  <button type="submit" class="govuk-button" data-module="govuk-button" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                    </form>
+                }
+            }
+    </div>
+</div>
+
+@section Scripts 
+{
+    <partial name="_ValidationScriptsPartial" />
+}
