@@ -10,7 +10,6 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -85,7 +84,7 @@ namespace edd_blazor_server_poc.Areas.Identity.Pages.Account
             [EmailAddress]
             public string Email { get; set; }
         }
-        
+
         public IActionResult OnGet() => RedirectToPage("./Login");
 
         public IActionResult OnPost(string provider, string returnUrl = null)
