@@ -1,5 +1,5 @@
 ﻿@page "/developer/edit/{Id}"
-@inject Controllers.DeveloperService developerService
+@inject Controllers.DeveloperService DeveloperService
 @inject NavigationManager NavigationManager
 
 <form>
@@ -9,19 +9,19 @@
          
                 <div class="govuk-form-group">
                     <label for="FirstName" class="govuk-label">First name</label>
-                <input form="Name" class="govuk-input" @bind="@Obj.FirstName" />
+                <input id="FirstName" class="govuk-input" @bind="@Obj.FirstName" />
                 </div>
                 <div class="govuk-form-group">
                     <label for="LastName" class="govuk-label">Last name</label>
-                <input form="Designation" class="govuk-input" @bind="@Obj.LastName" />
+                <input id="LastName" class="govuk-input" @bind="@Obj.LastName" />
                 </div>
                 <div class="govuk-form-group">
                     <label for="PreferredLanguage" class="govuk-label">Preferred language</label>
-                <input form="City" class="govuk-input" @bind="@Obj.PreferredLanguage" />
+                <input id="PreferredLanguage" class="govuk-input" @bind="@Obj.PreferredLanguage" />
                 </div>
                 <div class="govuk-form-group">
                     <label for="Experience" class="govuk-label">Experience</label>
-                <input form="City" class="govuk-input" @bind="@Obj.Experience" />
+                <input id="Experience" class="govuk-input" @bind="@Obj.Experience" />
                 </div>
            
             <div class="govuk-form-group">
@@ -30,7 +30,7 @@
             </div>
     </div>
     </div>
-    </form>
+</form>
 
 @code {
     
@@ -41,12 +41,12 @@
     
     protected override async Task OnInitializedAsync()
     {
-        Obj = await Task.Run(() => developerService.GetDeveloperAsync(Convert.ToInt32(Id)));
+        Obj = await Task.Run(() => DeveloperService.GetDeveloperAsync(Convert.ToInt32(Id)));
     }
     
     private async void UpdateDev()
     {
-        await developerService.UpdateDeveloperAsync(Obj);
+        await DeveloperService.UpdateDeveloperAsync(Obj);
         NavigationManager.NavigateTo("/");
     }
     
