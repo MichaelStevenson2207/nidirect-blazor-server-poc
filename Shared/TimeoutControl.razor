@@ -1,26 +1,22 @@
-﻿@using System.Diagnostics
-@using Microsoft.AspNetCore.Identity
-@inject NavigationManager Navigation
-@inject SignInManager<IdentityUser> SignInManager
+﻿@inject NavigationManager Navigation
 
 @if (_shouldRender)
 {
     <div id="timeout-dialog" class="modal" aria-live="assertive" aria-modal="true">
-        <div class="modal-dialog-box" role="alertdialog" aria-describedby="aria-timeout-label">
+        <div role="alertdialog" aria-describedby="aria-timeout-label">
             <span class="govuk-visually-hidden-focusable" id="aria-timeout-label">
-        
-                Your session will expire in 2:00 minutes. Any information you entered without saving will be lost. Do you want more time to continue?
+                Your session will expire in @_timeRemaining minutes. Any information you entered without saving will be lost. Do you want more time to continue?
             </span>
-      
-            <h2>Your application will time out soon</h2>
+
+            <h2 class="govuk-heading-m">Your application will time out soon</h2>
      
             <p class="govuk-body" id="expiring-in-message" role="timer" aria-live="off">
-                Your application will time out in 20:00 minutes
+                Your application will time out in @_timeRemaining minute(s)
             </p>
         
             <p class="govuk-body">Any information you entered without saving will be lost. We do this to keep your information secure.</p>
         
-            <p>
+            <p class="govuk-body">
                 <button class="govuk-button" @onclick="ResetTimer">Continue application</button>
                 <button class="govuk-button govuk-button--secondary" @onclick="EndSession">End session</button>
             </p>
@@ -28,22 +24,41 @@
     </div>
 }
 
-@code {
-
+@code 
+{
     [Parameter]
-    public int DelayInMinutes { get; set; } = 5; 
-
+    public int ShowTimeOutAfter { get; set; } = 5; 
+    private TimeSpan _timeRemaining;
+    private System.Timers.Timer _countdownTimer;
     private bool _shouldRender = false;
-
-    public int TimeLeft { get; set; }
 
     protected override void OnInitialized()
     {
-        Task.Delay(DelayInMinutes * 1000).ContinueWith(_ =>
+        var countdownDuration = TimeSpan.FromMinutes(ShowTimeOutAfter + 2);
+
+        _countdownTimer = new System.Timers.Timer(1000);
+        _countdownTimer.Elapsed += CountdownTimerElapsed;
+        _countdownTimer.AutoReset = true;
+        _countdownTimer.Start();
+
+        StartCountdown(countdownDuration);
+        
+        Task.Delay(ShowTimeOutAfter * 1000 * 60).ContinueWith(_ =>
         {
             _shouldRender = true;
             InvokeAsync(StateHasChanged);
         });
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Timer timer = new Timer(callback: async (state) =>
+        {
+            await InvokeAsync(() =>
+            {
+                Navigation.NavigateTo("/Identity/Account/LogOut", true);
+            });
+        }, null, TimeSpan.FromMinutes(ShowTimeOutAfter + 2), Timeout.InfiniteTimeSpan);
     }
 
     private void ResetTimer()
@@ -55,5 +70,27 @@
     private void EndSession()
     {
         Navigation.NavigateTo("/Identity/Account/LogOut", true);
+    }
+
+    private void StartCountdown(TimeSpan duration)
+    {
+        _timeRemaining = duration;
+    }
+
+    private void CountdownTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+    {
+        _timeRemaining = _timeRemaining.Subtract(TimeSpan.FromSeconds(1));
+
+        if (_timeRemaining.TotalSeconds <= 0)
+        {
+            _countdownTimer.Stop();
+        }
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        _countdownTimer?.Dispose();
     }
 }

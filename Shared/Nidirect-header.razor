@@ -16,30 +16,32 @@
                 <span class="govuk-visually-hidden">(n i direct government services)</span>
             </div>
             
-            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+            <button type="button" class="govuk-header__menu-button @NavButtonCssClass" onclick="@ToggleNavMenu" aria-expanded="@AriaExpanded" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+            
             <nav role="navigation" aria-label="Top Level Navigation" data-html2canvas-ignore="true">
-            <ul id="navigation" class="govuk-header__navigation nidirect-header__navigation">
-
-                <li class="govuk-header__navigation-item nidirect-header__navigation-item">
-                    <a class="govuk-header__link" href="fileupload">
-                        File upload
-                    </a>
-                </li>
+              
+                <ul id="navigation" class="govuk-header__navigation nidirect-header__navigation @ListCssClass" aria-hidden="true">
+                    
+                    <li class="govuk-header__navigation-item nidirect-header__navigation-item nidirect-header__navigation-item--active">
+                        <a class="govuk-header__link" href="/">
+                            Home
+                        </a>
+                    </li>
+                    
+                    <li class="govuk-header__navigation-item nidirect-header__navigation-item" >
+                        <a class="govuk-header__link" href="fileupload">
+                            File upload
+                        </a>
+                    </li>
                 
-                <li class="govuk-header__navigation-item nidirect-header__navigation-item">
-                    <a class="govuk-header__link" href="fileupload2">
-                        File upload 2
-                    </a>
-                </li>
+                    <li class="govuk-header__navigation-item nidirect-header__navigation-item">
+                        <a class="govuk-header__link" href="fileupload2">
+                            File upload 2
+                        </a>
+                    </li>
                 
-                <LoginDisplay />
-                
-                <li class="govuk-header__navigation-item nidirect-header__navigation-item--active">
-                    <a class="govuk-header__link" href="/">
-                        Home
-                    </a>
-                </li>
-            </ul>
+                    <LoginDisplay />
+                </ul>
             </nav>
         </div>
     </div>
@@ -49,3 +51,16 @@
         </div>
     </div>
 </header>
+
+@code 
+{
+    private bool _collapseNavMenu = true;
+    private string AriaExpanded => _collapseNavMenu ? "false" : "true";
+    private string NavButtonCssClass => _collapseNavMenu ? "" : "govuk-header__menu-button--open";
+    private string ListCssClass => _collapseNavMenu ? "" : "govuk-header__navigation--open";
+
+    private void ToggleNavMenu()
+    {
+        _collapseNavMenu = !_collapseNavMenu;
+    }
+}
