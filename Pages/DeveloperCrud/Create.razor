@@ -7,22 +7,23 @@
     <h1 class="govuk-heading-l">Create developer</h1>
 
         <EditForm Model="@Obj" OnValidSubmit="@CreateEmployee">
-      
+            
             <GovUkValidationSummary />
-
-            <div class="govuk-form-group">
-                    <label for="FirstName" class="govuk-label">First name</label>
-                    <div class="govuk-error-message">
-                    <ValidationMessage For="@(() => Obj.FirstName)" />
-                    </div>
-                <input form="FirstName" class="govuk-input" @bind="@Obj.FirstName" />
+            
+            <div class="govuk-form-group govuk-form-group--error">
+                <label for="FirstName" class="govuk-label">First name</label>
+                <div class="govuk-error-message">
+                    <ValidationMessage For="@(() => Obj.FirstName)"/>
                 </div>
+                <input id="FirstName" class="govuk-input" @bind="@Obj.FirstName"/>
+            </div>
             <div class="govuk-form-group">
                     <label for="LastName" class="govuk-label">Last name</label>
                     <div class="govuk-error-message">
-                    <ValidationMessage For="@(() => Obj.LastName)" />
+                         <ValidationMessage For="@(() => Obj.LastName)" />
                     </div>
-                <input form="LastName" class="govuk-input" @bind="@Obj.LastName" />
+                <input id="LastName" class="govuk-input" @bind="@Obj.LastName" />
+            
                 </div>
 
                 <div class="govuk-form-group">
@@ -30,7 +31,7 @@
                     <div class="govuk-error-message">
                     <ValidationMessage For="@(() => Obj.CountryId)" />
                     </div>
-                    <select @onchange="ShowHideOtherCountry" class="govuk-select">
+                <select id="CountryId" @onchange="ShowHideOtherCountry" class="govuk-select">
                         <option value="0">Select country</option>
                         <option value="1">United Kingdom</option>
                         <option value="2">Ireland</option>
@@ -43,36 +44,34 @@
                 {
                    <div class="govuk-form-group">
                         <label for="OtherCountry" class="govuk-label">Other country</label>
-                    <input form="OtherCountry" class="govuk-input" @bind="@Obj.OtherCountry" />
+                    <input id="OtherCountry" class="govuk-input" @bind="@Obj.OtherCountry" />
                     </div>
                 }
 
             <div class="govuk-form-group">
                     <label for="PreferredLanguage" class="govuk-label">Preferred language</label>
-                <input form="PreferredLanguage" class="govuk-input" @bind="@Obj.PreferredLanguage" />
+                <input id="PreferredLanguage" class="govuk-input" @bind="@Obj.PreferredLanguage" />
                 </div>
             <div class="govuk-form-group">
                     <label for="Experience" class="govuk-label">Experience</label>
-                <input form="Experience" class="govuk-input" @bind="@Obj.Experience" />
+                <input id="Experience" class="govuk-input" @bind="@Obj.Experience" />
                 </div>
 
             <div class="govuk-form-group">
                     <button type="submit" class="govuk-button" value="Save">Save</button>
                     <input type="button" class="govuk-button govuk-button--secondary" @onclick="@Cancel" value="Cancel" />
                 </div>
-
-
         </EditForm>
     </div>
 </div>
 
 @code
-    {
-        public Developer Obj = new Developer();
+{
+        private Developer Obj = new ();
 
-        public bool showHide { get; set; } = false;
+        private bool showHide { get; set; } = false;
 
-        public async void CreateEmployee()
+        private async void CreateEmployee()
         {
             await DeveloperService.InsertDeveloperAsync(Obj);
 

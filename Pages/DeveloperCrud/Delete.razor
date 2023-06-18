@@ -40,14 +40,14 @@
     [Parameter]
     public string Id { get; set; }
     
-    Developer Obj = new Developer();
+    Developer Obj = new ();
     
     protected override async Task OnInitializedAsync()
     {
         Obj = await Task.Run(() => DeveloperService.GetDeveloperAsync(Convert.ToInt32(Id)));
     }
     
-    protected async void DeleteDev()
+    private async void DeleteDev()
     {
         await DeveloperService.DeleteDeveloperAsync(Obj);
         

@@ -1,13 +1,46 @@
-﻿<div class="govuk-error-summary" data-module="govuk-error-summary">
-    <div role="alert">
-        <h2 class="govuk-error-summary__title">
-            There is a problem
-        </h2>
-        <div class="govuk-error-summary__body">
-            <DataAnnotationsValidator />
-            <div class="govuk-list govuk-error-summary__list">
-                <ValidationSummary />
+﻿<DataAnnotationsValidator />
+@if (HasValidationErrors)
+{
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+        <div role="alert">
+            <h2 class="govuk-error-summary__title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @foreach (var message in ValidationMessages)
+                    {
+                        <li>
+                            <a href="#">@message</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </div>
-</div>
+}
+
+@code 
+{
+    [CascadingParameter]
+    private EditContext EditContext { get; set; }
+
+    private IEnumerable<string> ValidationMessages => EditContext.GetValidationMessages();
+
+    private bool HasValidationErrors => ValidationMessages.Any();
+
+    protected override void OnInitialized()
+    {
+        EditContext.OnValidationStateChanged += HandleValidationStateChanged;
+    }
+
+    private void HandleValidationStateChanged(object sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        EditContext.OnValidationStateChanged -= HandleValidationStateChanged;
+    }
+}
