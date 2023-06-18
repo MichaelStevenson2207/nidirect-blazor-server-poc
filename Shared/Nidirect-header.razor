@@ -16,11 +16,11 @@
                 <span class="govuk-visually-hidden">(n i direct government services)</span>
             </div>
             
-            <button type="button" class="govuk-header__menu-button @NavMenuCssClass" onclick="@ToggleNavMenu" aria-expanded="@ariaExpanded" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+            <button type="button" class="govuk-header__menu-button @NavButtonCssClass" onclick="@ToggleNavMenu" aria-expanded="@AriaExpanded" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
             
             <nav role="navigation" aria-label="Top Level Navigation" data-html2canvas-ignore="true">
               
-                <ul id="navigation" class="govuk-header__navigation nidirect-header__navigation @NavMenuCssClass2" aria-hidden="true">
+                <ul id="navigation" class="govuk-header__navigation nidirect-header__navigation @ListCssClass" aria-hidden="true">
                     
                     <li class="govuk-header__navigation-item nidirect-header__navigation-item nidirect-header__navigation-item--active">
                         <a class="govuk-header__link" href="/">
@@ -52,17 +52,15 @@
     </div>
 </header>
 
-
 @code 
 {
-    private bool collapseNavMenu = true;
-    private string ariaExpanded => collapseNavMenu ? "false" : "true";
-    private string buttonClass => collapseNavMenu ? "hidden" : "";
-    private string NavMenuCssClass => collapseNavMenu ? "" : "govuk-header__menu-button--open";
-    private string NavMenuCssClass2 => collapseNavMenu ? "" : "govuk-header__navigation--open";
+    private bool _collapseNavMenu = true;
+    private string AriaExpanded => _collapseNavMenu ? "false" : "true";
+    private string NavButtonCssClass => _collapseNavMenu ? "" : "govuk-header__menu-button--open";
+    private string ListCssClass => _collapseNavMenu ? "" : "govuk-header__navigation--open";
 
     private void ToggleNavMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
+        _collapseNavMenu = !_collapseNavMenu;
     }
 }
