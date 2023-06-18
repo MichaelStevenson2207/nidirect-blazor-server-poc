@@ -20,8 +20,14 @@
             
             <nav role="navigation" aria-label="Top Level Navigation" data-html2canvas-ignore="true">
               
-                <ul id="navigation" class="govuk-header__navigation nidirect-header__navigation @NavMenuCssClass2" aria-hidden="true" hidden="@buttonClass">
-
+                <ul id="navigation" class="govuk-header__navigation nidirect-header__navigation @NavMenuCssClass2" aria-hidden="true">
+                    
+                    <li class="govuk-header__navigation-item nidirect-header__navigation-item nidirect-header__navigation-item--active">
+                        <a class="govuk-header__link" href="/">
+                            Home
+                        </a>
+                    </li>
+                    
                     <li class="govuk-header__navigation-item nidirect-header__navigation-item" >
                         <a class="govuk-header__link" href="fileupload">
                             File upload
@@ -35,12 +41,6 @@
                     </li>
                 
                     <LoginDisplay />
-                
-                    <li class="govuk-header__navigation-item nidirect-header__navigation-item--active">
-                        <a class="govuk-header__link" href="/">
-                            Home
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </div>
@@ -56,13 +56,9 @@
 @code 
 {
     private bool collapseNavMenu = true;
-    
     private string ariaExpanded => collapseNavMenu ? "false" : "true";
-
     private string buttonClass => collapseNavMenu ? "hidden" : "";
-
     private string NavMenuCssClass => collapseNavMenu ? "" : "govuk-header__menu-button--open";
-
     private string NavMenuCssClass2 => collapseNavMenu ? "" : "govuk-header__navigation--open";
 
     private void ToggleNavMenu()
