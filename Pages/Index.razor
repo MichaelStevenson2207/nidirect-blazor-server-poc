@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@using nidirect_blazor_components
 <HeadContent>
     <meta name="description" content="Index page" />
 </HeadContent>
@@ -14,7 +14,11 @@
             <a class="govuk-button" href="developer/create">Create New</a>
         </div>
         <br>
-
+        
+        <Tag Text="Completed" Colour="purple" />
+        
+        <Component1 />
+        
         @if (developers == null)
         {
             <text>Loading...</text>
