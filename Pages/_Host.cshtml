@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Web
-@namespace edd_blazor_server_poc.Pages
+@namespace edd_blazor_server_poc.Pages ;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
@@ -31,8 +31,8 @@
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
 </head>
 <body class="govuk-template__body">
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
-    <component type="typeof(App)" render-mode="ServerPrerendered"/>
+<script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+<component type="typeof(App)" render-mode="ServerPrerendered"/>
 @*
 <div id="blazor-error-ui">
         <environment include="Staging,Production">
